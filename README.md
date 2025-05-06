@@ -1,4 +1,4 @@
-
+🚀 YouTube Medical Assistant: Smart Medical Q&A System with Whisper, LangChain, and ChromaDB
 This project builds a **full-stack Medical QA Assistant** that:
 
 * 🧠 Ingests medical educational YouTube videos (e.g., blood pressure, CPR, diabetes)
