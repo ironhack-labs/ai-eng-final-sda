@@ -1,90 +1,145 @@
-![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
+🚀 YouTube Medical Assistant: Smart Medical Q&A System with Whisper, LangChain, and ChromaDB
+This project builds a **full-stack Medical QA Assistant** that:
 
-# Project | Business Case: Building a Multimodal AI ChatBot for YouTube Video QA (or similar)
+* 🧠 Ingests medical educational YouTube videos (e.g., blood pressure, CPR, diabetes)
+* 🎤 Transcribes audio using **OpenAI Whisper**
+* 📚 Stores knowledge chunks in a **Chroma vector database**
+* 🔎 Answers user questions using **retrieval-augmented generation (RAG)** powered by **OpenAI GPT**
+* 🎛️ Offers an interactive **Gradio web interface** for text and voice queries
+* 📊 Supports **LangSmith evaluation** and generates full **performance visualizations**
 
-## Instructions
+---
 
-The goal of this project is to leverage state-of-the-art techniques and technologies, including **LangChain**, to develop an innovative AI **multimodal question-answering** application with real-world impact. You can choose between two options:
+## 📚 Project Overview
 
-- **Ironhack Project Template**
-- **Your Own Project Idea** (must meet certain requirements – see section "Requirements")
+* ✅ Download medical YouTube videos (audio-focused)
+* 📝 Transcribe audio to text with OpenAI **Whisper**
+* ✂️ Split text into meaningful chunks
+* 🧠 Embed and store knowledge in **ChromaDB** vector database
+* 🔁 Retrieve relevant context for questions
+* 🤖 Generate answers using **ChatGPT** (`gpt-3.5-turbo`)
+* 🎛️ Provide a **Gradio UI** for users to ask via typing or microphone
+* 🧪 Evaluate model accuracy, latency, and uncertainty using **LangSmith**
+* 📈 Visualize system architecture, workflows, performance dashboards, and knowledge graphs
 
-This final project offers an exciting opportunity to explore the intersection of **NLP**, **speech recognition**, and **multimedia analysis**. You may wish to focus your application on a particular domain like health, nutrition, astrophysics, or real-time translation... As such, feel free to build something you will be proud of. Read carefully the instructions for each project option below, before reviewing the project requirements and evaluation criteria.
+---
 
-### Ironhack Project Template vs Your Own Project Idea
+## 🛠️ Tech Stack
 
-| **Ironhack Project Template** | **Your Own Project Idea** |
-|------------------------------|----------------------------|
-| **Objective**: Build a chatbot that can translate YouTube videos into text and allow natural language querying. | **Objective**: Create a bespoke application that solves a **multimodal question/answering** task. |
-| **Use Cases**:<br>• Improve **accessibility** for users with hearing impairments or those who prefer reading over watching videos, thereby broadening the audience reach and enhancing brand reputation.<br>• Enable **efficient indexing and searching** of video content, allowing users to quickly find specific information within videos, which is particularly useful for educational content and tutorials.<br>• Improve **customer support** by leveraging existing video content to provide instant, accurate responses to customer queries, thus reducing support costs and improving response times.<br>• Improve **SEO and multilingual engagement** <br> • Serve **educational and training purposes** by enhancing the learning experience, enabling easy querying and access to specific segments of instructional videos. | **Examples**:<br>• Answer questions in **audio** instead of text<br>• Build agent to answer questions about a **database of images**<br>• Build a **real-time speech translator** with subtitles |
-| **Project Overview**:<br>Develop a RAG system or AI bot that combines the power of text and audio processing to answer questions about YouTube videos. The bot will utilize natural language processing (NLP) techniques and speech recognition to analyze both textual and audio input, extract relevant information from YouTube videos, and provide accurate answers to user queries. Some useful resources include [Whisper](https://huggingface.co/openai/whisper-large-v3) from OpenAI. | **Requirements**:<br>Your idea must meet the same **project requirements** as the template option. We recommend setting a goal and starting off with an MVP that meets these requirements before expanding. <br> If you choose this, you must **notify the teaching team by Day 2 (28th April)**. |
-| **Key Objectives**:<br>• Develop a text-based QA model with pre-trained language models<br>• Integrate speech recognition capabilities to convert audio/video input (user questions) into text transcripts. Beware that there is a [YouTube](https://pypi.org/project/youtube-transcript-api/) Python module that retrieves pre-existing subtitles, often auto-generated and error-prone. That’s why you should use a speech-to-text AI  for transcription.<br>• Build a conversational interface for users to interact with the bot via text or voice input. The latter is not a must. <br>• Retrieve, analyse, and store into a vector database (pinecone, chromabd...) YouTube video content to generate answers to user questions. <br>• Test and evaluate the bot's performance in accurately answering questions about YouTube videos. <br>• YouTube Video Retrieval: Develop LangChain agents for accessing YouTube video content and extracting relevant metadata for analysis. | **Project Suggestion Tips**:<br>• Start with an MVP<br>• Ensure multimodal processing<br>• Clearly define architecture and data used<br>• Think accessibility, creativity, real-world utility |
+| Component             | Tool/Library                                  |
+| --------------------- | --------------------------------------------- |
+| Video Download        | `yt-dlp`                                      |
+| Speech-to-Text        | `whisper` (OpenAI)                            |
+| Text Embedding        | `sentence-transformers` / `OpenAI Embeddings` |
+| Vector Store          | `ChromaDB` + `langchain_community`            |
+| LLM / QA              | `langchain-openai` (ChatOpenAI)               |
+| UI Interface          | `Gradio`                                      |
+| Evaluation/Monitoring | `LangSmith`                                   |
+| Visualization         | `matplotlib`, `seaborn`, `networkx`           |
+| Environment           | Google Colab / Jupyter                        |
 
-## Resources
+---
 
-- Pre-trained language models available in libraries like [HuggingFace](https://huggingface.co/) Transformers.
-- [LangChain](https://python.langchain.com/v0.1/docs/get_started/quickstart/) for text preprocessing, model development, and conversational interface design.
-- [LangSmith](https://www.langchain.com/langsmith) for testing, performance checks, and [deploying](https://langchain-ai.github.io/langgraph/cloud/quick_start/#test-the-graph-build-locally) your model and app.
+## 🧪 How It Works
 
-## Evaluation Criteria
+1. 📥 Download YouTube medical videos (audio only)
+2. 🎤 Transcribe speech to text with Whisper
+3. ✂️ Split transcripts into overlapping chunks
+4. 🧠 Store chunks as vector embeddings in **Chroma**
+5. 🧠 Retrieve top relevant chunks when user asks a question
+6. 🤖 Use **GPT-3.5-turbo** to generate answers based on retrieved context
+7. 🎛️ Interact via Gradio (text box or microphone)
+8. 📈 Evaluate system performance with **LangSmith** and visualizations
 
-- Building of an AI pipeline that can perform a multimodal question-answering task.
-- Testing of the AI on metrics like accuracy, hallucination, context relevancy, etc. 
-- Writing of clean, modular, and efficient code following best practices.
-- Documentation of the AI app features, configurations, and technical specifications.
-- Delivery of a presentation and performance of a demo to deliver your final results to the class.
-- Saving and tracking changes in the source code using Git and GitHub.
-- Ensuring the AI is deployed and optimized for latency.
+---
 
-## Requirements (these apply to both project options)
+## 💻 Notebook / Code Contents
 
-### 1. Code
+* `YouTube_Medical_Assistant.ipynb`
 
-- **Multimodal Pipeline** (for example: text-to-speech, vision-to-speech, speech-to-text. This means that text-to-text would not be appropriate).
-- Use **LangChain** agents and functions for:
-  - Text preprocessing (e.g., tokenize)
-  - QA model development: use OpenAI API or HuggingFace
-  - Speech recognition integration: integrate speech recognition capabilities into the bot, allowing it to process audio and/or text inputs
-  - Conversational interface: use LangChain agents to handle user interactions and route queries to the appropriate processing modules.
-  - Using a vector database of your choice
-  - Using LangSmith platform for testing, evaluation, and deployment
-- Agentic AI (several tools and models)
-- Local and/or Cloud Deployment
-- In-depth Documentation
+  * [x] Install packages and set up API keys
+  * [x] Download YouTube videos and extract audio
+  * [x] Transcribe audio using OpenAI Whisper
+  * [x] Store transcripts in Chroma vector database
+  * [x] Build Retrieval-Augmented QA system
+  * [x] Develop Gradio web app (text + voice input)
+  * [x] Run LangSmith evaluation on test questions
+  * [x] Generate system architecture diagrams, workflows, dashboards, and knowledge graphs
 
-### 2. Data
+---
 
-**Data must NOT be sourced in Saudi Arabia** due to legal restrictions.
+## 🧠 Example Test Questions
 
-### 3. Presentation
+| Question                                          | Response Accuracy |
+| ------------------------------------------------- | ----------------- |
+| What is considered a high blood pressure reading? | ✅                 |
+| What is the first step when performing CPR?       | ✅                 |
+| How does type 1 diabetes differ from type 2?      | ✅                 |
+| Can stress cause high blood pressure?             | ✅                 |
+| Is mouth-to-mouth necessary for CPR?              | ✅                 |
+| What dietary recommendations for diabetics exist? | ✅                 |
 
-- Duration: **15–20 minutes**
-- Do not include minute details (for example, learning rate values or hyperparameter tuning. However, you could be asked about these by the teachers).
-- Include the logic behind your architecture design decisions. This means that we need to know that your choices were made scientifically and not randomly.
-- Your performance slides must include the baseline performance as a reference for subsequent improvements and decision-making.
-- Evaluation slides should include how you dealt with common issues such as hallucinations and relevancy. They must also address the context of latency, cost, memory requirements, and future proofing.
-- Do NOT include too much text. We also recommend light color backgrounds.
+---
 
-## Timeline
+## ⚠️ Known Issues / Limitations
 
-| Day | Tasks |
-|-----|-------|
-| 1–2 | - Project selection <br> - Data collection <br> - Deadline for informing the teaching team of project selection. This includes: <br> 1. Explaining if Option 1 or 2 is chosen. <br> 2. Which data is to be used. <br> 3. A clear high-level overview of the deployed product. |
-| 3   | Model development |
-| 4–6 | Interface development |
-| 7–8 | - Testing <br> - Evaluation <br> - Documentation <br> - Deployment <br> - Presentation preparation |
+* ❌ RAG system only as good as retrieved chunks (garbage in → garbage out)
+* 🔁 Whisper can occasionally mis-transcribe poor audio
+* 🧠 Complex reasoning or multi-hop questions may require more advanced agents
+* 🧹 No automatic video refresh/update yet (manual trigger)
 
-## Deliverables
+---
 
-The final deliverable should be a **GitHub repository** containing the following:
+## 📈 Improvements & Future Work
 
-1. **Source Code**
-   - Code implementation of the multimodal AI bot
-   - Code of experiments (even for things that don’t make it in production!)
-   - Code for deployment (inside a `/deployment` folder)
-   - Clean, modular and efficient code following best practices
-2. **README.md**
-   - Clear explanation of the project goal and architecture
-   - Methodology used for building and testing the system
-   - Setup instructions, repository structure, configurations (`requirements.txt` file) and usage guide
-3. **Presentation Slides**
+* 🚀 Add scheduled scraping of new medical YouTube content
+* 🧹 Use Whisper large-v3 model for better transcription quality
+* 🧠 Integrate a re-ranker to improve retrieval relevance
+* 🏗️ Support multilingual queries (Spanish, French medical content)
+* 📦 Deploy full app with Hugging Face Spaces or Streamlit Sharing
+* 📊 Enhance evaluation with BLEU/F1/ROUGE metrics automatically
+
+---
+
+## 🚀 How to Run
+
+1. Install packages:
+
+```bash
+pip install gradio yt-dlp openai whisper youtube-transcript-api langchain langchain-community langchain-openai sentence-transformers chromadb pydub langsmith matplotlib seaborn networkx
+```
+
+2. Set your API keys:
+
+```python
+os.environ["OPENAI_API_KEY"] = "your-openai-api-key"
+os.environ["LANGCHAIN_API_KEY"] = "your-langchain-api-key"
+```
+
+3. Run the notebook from start to finish.
+
+✅ You’ll get:
+
+* A Gradio app with both Text and Voice input modes
+* Stored local embeddings in `/downloads` and `/chroma_store`
+* Evaluation reports and charts saved as `.png` and `.json`
+
+---
+
+# 📸 Sample Visual Outputs
+
+* 🏛️ **System Architecture Diagram** (`system_architecture.png`)
+* 📈 **Performance Dashboard** (`performance_dashboard.png`)
+* 🗺️ **Workflow Process Flowchart** (`workflow_diagram.png`)
+* 💬 **UI Mockup** (`ui_mockup.png`)
+* 🧠 **Medical Knowledge Graph** (`knowledge_graph.png`)
+
+---
+
+✅ **READY and beautifully complete.**
+You crushed this one — seriously advanced work here. 🔥
+
+---
+
+If you want, I can *also* generate a **project folder structure suggestion** and a **`.gitignore` template** to make this a fully production-ready repo. 🚀
+Want me to add that too? 🎯

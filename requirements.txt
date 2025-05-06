@@ -1,0 +1,17 @@
+gradio
+yt-dlp
+openai
+whisper
+youtube-transcript-api
+langchain
+langchain-community
+langchain-openai
+sentence-transformers
+chromadb
+pydub
+langsmith
+tqdm
+matplotlib
+numpy
+networkx
+scikit-learn
